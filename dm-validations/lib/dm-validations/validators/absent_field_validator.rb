@@ -9,7 +9,7 @@ module DataMapper
       def call(target)
         return true if target.send(self.field_name).blank?
 
-        error_message = self.options[:message] || ValidationErrors.default_error_message(:absent, field_name)
+        error_message = @options[:message] || ValidationErrors.default_error_message(:absent, field_name, {:target => self})
         add_error(target, error_message, field_name)
 
         return false
