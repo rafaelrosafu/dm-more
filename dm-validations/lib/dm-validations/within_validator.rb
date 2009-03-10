@@ -22,14 +22,14 @@ module DataMapper
         msg = @options[:message]
         if set.is_a?(Range)
           if set.first != -n && set.last != n
-            error_message = msg || ValidationErrors.default_error_message(:value_between, field_name, set.first, set.last)
+            error_message = msg || ValidationErrors.default_error_message(:value_between, field_name, set.first, set.last, {:target => self, :minimum => set.first, :maximum => set.last})
           elsif set.first == -n
-            error_message = msg || ValidationErrors.default_error_message(:less_than_or_equal_to, field_name, set.last)
+            error_message = msg || ValidationErrors.default_error_message(:less_than_or_equal_to, field_name, set.last, {:target => self, :value => set.last})
           elsif set.last == n
-            error_message = msg || ValidationErrors.default_error_message(:greater_than_or_equal_to, field_name, set.first)
+            error_message = msg || ValidationErrors.default_error_message(:greater_than_or_equal_to, field_name, set.first, {:target => self, :value => set.first})
           end
         else
-          error_message = ValidationErrors.default_error_message(:inclusion, field_name, set.join(', '))
+          error_message = ValidationErrors.default_error_message(:inclusion, field_name, set.join(', '), {:target => self, :values => set.join(', ')})
         end
 
         add_error(target, error_message, field_name)

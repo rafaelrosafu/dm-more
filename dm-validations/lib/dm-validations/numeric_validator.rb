@@ -25,7 +25,7 @@ module DataMapper
 
         if @options[:integer_only]
           return true if value =~ /\A[+-]?\d+\z/
-          error_message ||= ValidationErrors.default_error_message(:not_an_integer, field_name)
+          error_message ||= ValidationErrors.default_error_message(:not_an_integer, field_name, {:target => self})
         else
           # FIXME: if precision and scale are not specified, can we assume that it is an integer?
           #        probably not, as floating point numbers don't have hard
@@ -58,7 +58,7 @@ module DataMapper
           else
             return true if value =~ /\A[+-]?(?:\d+|\d*\.\d+)\z/
           end
-          error_message ||= ValidationErrors.default_error_message(:not_a_number, field_name)
+          error_message ||= ValidationErrors.default_error_message(:not_a_number, field_name, {:target => self})
         end
 
         add_error(target, error_message, field_name)

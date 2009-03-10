@@ -17,7 +17,7 @@ module DataMapper
         property = target.validation_property(field_name)
         return true if value.nil? || value.kind_of?(property.primitive) || property.primitive == TrueClass && value.kind_of?(FalseClass)
 
-        error_message = @options[:message] || default_error(property)
+        error_message = @options[:message] || default_error(property, self)
         add_error(target, error_message, field_name)
 
         false
@@ -25,8 +25,8 @@ module DataMapper
 
       protected
 
-      def default_error(property)
-        ValidationErrors.default_error_message(:primitive, field_name, property.primitive)
+      def default_error(property, target)
+        ValidationErrors.default_error_message(:primitive, field_name, property.primitive, {:target => target, :type => property.primitive})
       end
 
     end # class PrimitiveValidator
