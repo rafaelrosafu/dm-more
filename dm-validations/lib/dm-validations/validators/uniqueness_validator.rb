@@ -42,7 +42,7 @@ module DataMapper
         return true if resource.nil?
         return true if target.saved? && resource == target
 
-        error_message = @options[:message] || ValidationErrors.default_error_message(:taken, field_name)
+        error_message = @options[:message] || ValidationErrors.default_error_message(:taken, field_name, {:target => self})
         add_error(target, error_message, field_name)
 
         false
