@@ -13,10 +13,10 @@ module DataMapper
           load_default_translations
           klass = Extlib::Inflection.underscore(extra[:target].class.to_s)
           translated_field = find_translation( field, [
-                                    ["data_mapper.models.#{klass}.properties"],
-                                    ["data_mapper.models._default.properties"],
                                     ["models.#{klass}.properties"],
-                                    ["models._default.properties"]
+                                    ["models._default.properties"],
+                                    ["data_mapper.models.#{klass}.properties"],
+                                    ["data_mapper.models._default.properties"]
                                   ])
 
           return find_translation( key, [
