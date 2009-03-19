@@ -1,3 +1,10 @@
+# Ensure I18n presence
+unless defined?(I18n) then
+  require 'rubygems'
+  gem 'i18n'
+  require 'i18n'
+end
+
 module DataMapper
   module Validate
     class ValidationErrors
